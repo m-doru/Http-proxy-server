@@ -7,5 +7,5 @@ import java.net.UnknownHostException;
  * Created by m-doru on 21.04.2016.
  */
 public interface HostResolver {
-    public InetSocketAddress resolve(String host, int port) throws UnknownHostException;
+    InetSocketAddress resolve(String host, int port) throws UnknownHostException;
 }
