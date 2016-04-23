@@ -1,10 +1,13 @@
 package pao.mdoru.impl;
 
+import pao.mdoru.interfaces.ClientHandler;
 import pao.mdoru.interfaces.HttpProxyServer;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -39,6 +42,23 @@ public class DefaultHttpProxyServer implements HttpProxyServer{
     }
 
     private void socketListener(){
+        while(!this.socketListenerThread.isInterrupted()){
+            Socket client;
+            try {
+                client = this.serverSocket.accept();
+            } catch (IOException e) {
+                this.LOGGER.log(Level.WARNING, "Failed to accept connection");
+                continue;
+            }
+            try {
+                ClientHandler clientHandler = new DefaultClientHandler(client);
+                clientHandler.handle();
+            } catch (IOException e) {
+                this.LOGGER.log(Level.WARNING, "Failed to instantiate a ClientHandler");
+                continue;
+            }
 
+
+        }
     }
 }

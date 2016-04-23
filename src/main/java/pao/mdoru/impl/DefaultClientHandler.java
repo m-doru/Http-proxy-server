@@ -20,6 +20,7 @@ public class DefaultClientHandler extends Thread implements ClientHandler{
     private OutputStream clientOutput;
 
     public DefaultClientHandler(Socket clientSocket) throws IOException {
+        super("ClientHandler");
         this.clientSocket = clientSocket;
         this.clientInput = clientSocket.getInputStream();
         this.clientOutput = clientSocket.getOutputStream();
@@ -45,7 +46,7 @@ public class DefaultClientHandler extends Thread implements ClientHandler{
         }
 
         RequestHandler requestHandler = new HttpRequestHandler();
-        requestHandler.handle();
+        requestHandler.handle(new HttpRequest(requestBuffer));
     }
 
 }
