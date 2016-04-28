@@ -1,4 +1,4 @@
-package pao.mdoru.interfaces;
+package main.java.pao.mdoru.interfaces;
 
 import java.io.IOException;
 

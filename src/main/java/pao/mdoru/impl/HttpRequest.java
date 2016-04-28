@@ -1,6 +1,7 @@
-package pao.mdoru.impl;
+package main.java.pao.mdoru.impl;
 
-import pao.mdoru.interfaces.Request;
+
+import main.java.pao.mdoru.interfaces.Request;
 
 /**
  * Created by m-doru on 21.04.2016.

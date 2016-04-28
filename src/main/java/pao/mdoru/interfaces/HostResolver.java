@@ -1,4 +1,4 @@
-package pao.mdoru.interfaces;
+package main.java.pao.mdoru.interfaces;
 
 import java.net.InetSocketAddress;
 import java.net.UnknownHostException;

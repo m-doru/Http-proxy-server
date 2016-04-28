@@ -1,7 +1,7 @@
-package pao.mdoru.impl;
+package main.java.pao.mdoru.impl;
 
-import pao.mdoru.interfaces.ClientHandler;
-import pao.mdoru.interfaces.RequestHandler;
+import main.java.pao.mdoru.interfaces.ClientHandler;
+import main.java.pao.mdoru.interfaces.RequestHandler;
 
 import java.io.IOException;
 import java.io.InputStream;

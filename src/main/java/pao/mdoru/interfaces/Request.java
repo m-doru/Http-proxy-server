@@ -1,4 +1,4 @@
-package pao.mdoru.interfaces;
+package main.java.pao.mdoru.interfaces;
 
 /**
  * Created by m-doru on 21.04.2016.

@@ -1,7 +1,7 @@
-package pao.mdoru.impl;
+package main.java.pao.mdoru.impl;
 
-import pao.mdoru.interfaces.ClientHandler;
-import pao.mdoru.interfaces.HttpProxyServer;
+import main.java.pao.mdoru.interfaces.ClientHandler;
+import main.java.pao.mdoru.interfaces.HttpProxyServer;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
