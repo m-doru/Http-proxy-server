@@ -6,6 +6,7 @@ import pao.mdoru.utils.ByteBuilder;
 
 import java.io.*;
 import java.net.Socket;
+import java.nio.CharBuffer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -15,13 +16,10 @@ import java.util.logging.Logger;
 public class DefaultClientHandler implements Runnable{
     private final Logger LOGGER = Logger.getLogger(DefaultClientHandler.class.getName());
     private Socket clientSocket;
-    private InputStream clientInput;
-    private OutputStream clientOutput;
-
+    private BufferedReader clientReader;
     public DefaultClientHandler(Socket clientSocket) throws IOException {
         this.clientSocket = clientSocket;
-        this.clientInput = clientSocket.getInputStream();
-        this.clientOutput = clientSocket.getOutputStream();
+        this.clientReader = new BufferedReader(new InputStreamReader(this.clientSocket.getInputStream()));
     }
 
     @Override
@@ -30,7 +28,6 @@ public class DefaultClientHandler implements Runnable{
 
         HttpRequest request = new HttpRequest(requestHeader);
 
-        //TODO if it is a post request we should read more into the request
         if(request.hasContent()){
             try {
                 request.setContent(this.readContent(request.getContentLength()));
@@ -38,8 +35,6 @@ public class DefaultClientHandler implements Runnable{
                 this.LOGGER.log(Level.SEVERE, "Failed to read content. Ignoring request");
                 try {
                     this.clientSocket.close();
-                    this.clientInput.close();
-                    this.clientOutput.close();
                 } catch (IOException e1) {
                     this.LOGGER.log(Level.WARNING, "Problems when disconnecting client");
                 }
@@ -54,7 +49,7 @@ public class DefaultClientHandler implements Runnable{
         String requestAnswer = requestHandler.getAnswer();
 
         try {
-            this.clientOutput.write(requestAnswer.getBytes());
+            this.clientSocket.getOutputStream().write(requestAnswer.getBytes());
 
         } catch (IOException e) {
             System.out.println("Failed to write to client stream");
@@ -70,13 +65,12 @@ public class DefaultClientHandler implements Runnable{
     }
 
     private String readHeader(){
-        BufferedReader reader = new BufferedReader(new InputStreamReader(this.clientInput));
 
         String line;
 
         StringBuilder requestBuilder = new StringBuilder();
         try {
-            while((line = reader.readLine()) != null){
+            while((line = clientReader.readLine()) != null){
                 requestBuilder.append(line);
                 requestBuilder.append("\n");
 
@@ -91,19 +85,18 @@ public class DefaultClientHandler implements Runnable{
     }
 
     private byte[] readContent(int contentLength) throws IOException {
-        ByteBuilder contentBuilder = new ByteBuilder();
+        StringBuilder contentBuilder = new StringBuilder();
 
-        byte[] buffer = new byte[1024];
+        char c;
 
-        int sizeRead = 0;
-
-        while(contentLength > 0){
-            sizeRead = this.clientInput.read(buffer);
-
-            contentBuilder.append(buffer, Math.min(sizeRead, contentLength));
-            contentLength -= sizeRead;
+        for(int i = 0; i < contentLength; ++i){
+            c = (char)this.clientReader.read();
+            if(c != -1)
+                contentBuilder.append(c);
+            else
+                break;
         }
 
-        return contentBuilder.toArray();
+        return contentBuilder.toString().getBytes();
     }
 }
