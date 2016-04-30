@@ -1,16 +1,19 @@
-package main.java.pao.mdoru.impl;
+package pao.mdoru.impl;
 
 
-import main.java.pao.mdoru.interfaces.Request;
-import main.java.pao.mdoru.interfaces.RequestHandler;
+import pao.mdoru.interfaces.Request;
+import pao.mdoru.interfaces.RequestHandler;
 
 /**
  * Created by m-doru on 21.04.2016.
  */
 public class HttpRequestHandler implements RequestHandler {
 
-    @Override
     public void handle(Request request) {
 
+    }
+
+    public String getAnswer() {
+        return null;
     }
 }

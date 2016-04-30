@@ -1,4 +1,4 @@
-package main.java.pao.mdoru.interfaces;
+package pao.mdoru.interfaces;
 
 import java.net.InetSocketAddress;
 

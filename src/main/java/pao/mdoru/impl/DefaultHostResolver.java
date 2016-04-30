@@ -1,7 +1,7 @@
-package main.java.pao.mdoru.impl;
+package pao.mdoru.impl;
 
 
-import main.java.pao.mdoru.interfaces.HostResolver;
+import pao.mdoru.interfaces.HostResolver;
 
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
