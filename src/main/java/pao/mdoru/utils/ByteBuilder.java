@@ -53,4 +53,8 @@ public class ByteBuilder {
     public byte[] toArray(){
         return Arrays.copyOfRange(this.buffer, 0, size);
     }
+
+    public int getSize(){
+        return this.size;
+    }
 }

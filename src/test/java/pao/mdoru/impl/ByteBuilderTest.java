@@ -1,4 +1,4 @@
-package implTests;
+package pao.mdoru.impl;
 
 import org.junit.Test;
 import pao.mdoru.utils.ByteBuilder;
