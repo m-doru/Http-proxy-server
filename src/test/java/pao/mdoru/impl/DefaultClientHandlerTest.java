@@ -1,4 +1,4 @@
-package implTests;
+package pao.mdoru.impl;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -105,7 +105,7 @@ public class DefaultClientHandlerTest {
         }
     }
 
-    @Test
+    /*@Test
     public void readContent_PostRequest_CorrectlyReadsContent(){
         try(Socket connection = this.serverSocket.accept()){
             this.connection.getOutputStream().write(this.httpPOSTRequest.getBytes());
@@ -136,7 +136,7 @@ public class DefaultClientHandlerTest {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     @Test
     public void readHeader_GETRequest_CorrectlyReadsRequest(){
