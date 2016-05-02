@@ -16,30 +16,25 @@ import java.util.logging.Logger;
  */
 public class DefaultHttpProxyServer implements HttpProxyServer {
     private final Logger LOGGER;
-    private InetSocketAddress boundAddress;
     private String name;
     private ServerSocket serverSocket;
     private int port;
     private Thread socketListenerThread;
     private ExecutorService clientHandler;
 
-    public DefaultHttpProxyServer(String name, int port, InetSocketAddress boundAddress) throws IOException {
+    public DefaultHttpProxyServer(String name, int port, int threadPoolSize) throws IOException {
         this.name = name;
         this.port = port;
-        this.boundAddress = boundAddress;
         this.serverSocket = new ServerSocket(this.port);
+        this.clientHandler = Executors.newFixedThreadPool(threadPoolSize);
+        this.LOGGER = Logger.getLogger(this.name);
         this.socketListenerThread = new Thread(() -> {this.socketListener();});
         this.socketListenerThread.start();
-        this.clientHandler = Executors.newFixedThreadPool(500);
-        this.LOGGER = Logger.getLogger(this.name);
     }
     public void stop() {
         this.socketListenerThread.interrupt();
     }
 
-    public InetSocketAddress getListenAddress() {
-        return this.boundAddress;
-    }
 
     private void socketListener(){
         while(!this.socketListenerThread.isInterrupted()){
