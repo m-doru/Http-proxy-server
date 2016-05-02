@@ -7,6 +7,5 @@ import java.net.InetSocketAddress;
  */
 public interface HttpProxyServer {
     void stop();
-    InetSocketAddress getListenAddress();
 }
 
