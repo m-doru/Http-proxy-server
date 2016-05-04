@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 /**
  * Created by m-doru on 30.04.2016.
  */
-public class HttpRequestTest {
+public class HttpRequestHeaderTest {
     private String httpGETRequestWithPort = "GET / HTTP/1.1\n" +
             "Host: localhost:32165\n" +
             "User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:45.0) Gecko/20100101 Firefox/45.0\n" +

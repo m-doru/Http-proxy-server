@@ -1,10 +1,9 @@
 package pao.mdoru.impl;
 
-import org.junit.Test;
 import pao.mdoru.utils.ByteBuilder;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertTrue;
+import org.junit.Test;
+import org.junit.Assert;
 
 
 /**
@@ -19,8 +18,7 @@ public class ByteBuilderTest {
         builder.append("test2".getBytes());
         builder.append("test3".getBytes());
 
-        assertArrayEquals(fullAppended, builder.toArray());
-
+        Assert.assertArrayEquals(fullAppended, builder.toArray());
     }
 
     @Test
@@ -31,7 +29,7 @@ public class ByteBuilderTest {
 
         builder.append(null);
 
-        assertArrayEquals(appended, builder.toArray());
+        Assert.assertArrayEquals(appended, builder.toArray());
     }
 
     @Test
@@ -44,7 +42,7 @@ public class ByteBuilderTest {
         builder.append("test2DONOTAPPENDTHIS".getBytes(), 5);
         builder.append("test3DONOTAPPENDTHIS".getBytes(), 5);
 
-        assertArrayEquals(fullAppended, builder.toArray());
+        Assert.assertArrayEquals(fullAppended, builder.toArray());
     }
 
     @Test
@@ -59,15 +57,6 @@ public class ByteBuilderTest {
             threwException = true;
         }
 
-        assertTrue(threwException);
-    }
-    @Test
-    public void append_heavyWorload(){
-        byte[] source = "test test test".getBytes();
-
-        ByteBuilder builder = new ByteBuilder();
-
-        for(int i = 0; i < 1000000; ++i)
-            builder.append(source);
+        Assert.assertTrue(threwException);
     }
 }

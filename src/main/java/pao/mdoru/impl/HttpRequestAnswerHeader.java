@@ -45,6 +45,7 @@ public class HttpRequestAnswerHeader {
     public void addParameter(String parameter){
         this.parameters.add(parameter);
     }
+
     public List<String> getParameters(){
         return this.parameters;
     }

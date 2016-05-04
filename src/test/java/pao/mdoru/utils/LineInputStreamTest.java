@@ -50,7 +50,7 @@ public class LineInputStreamTest {
     }
     @Test
     public void readLine_MultipleLineContainingStream_CorrectlyReturnsTheLines() throws Exception {
-        Thread.sleep(30);
+        Thread.sleep(100);
 
         this.connect("localhost", 32165).getOutputStream().write((
                 "this is a test\n" +

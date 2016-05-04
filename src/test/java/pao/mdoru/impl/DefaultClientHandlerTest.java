@@ -1,13 +1,11 @@
 package pao.mdoru.impl;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import pao.mdoru.impl.DefaultClientHandler;
+import org.junit.Assert;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.ServerSocket;
@@ -117,24 +115,19 @@ public class DefaultClientHandlerTest {
             readRequestHeader.setAccessible(true);
 
             readRequestHeader.invoke(handler);
-
-            Method readRequestContent = DefaultClientHandler.class.getDeclaredMethod("readContent", int.class);
-
-            readRequestContent.setAccessible(true);
-
-            Object requestContent = readRequestContent.invoke(handler, 4);
-
-            Assert.assertArrayEquals(this.httpPostRequestContent.getBytes(), (byte[])requestContent);
         } catch (IOException e) {
             e.printStackTrace();
             this.logger.log(Level.SEVERE, "Failed to accept connection");
             Assert.assertTrue(false);
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
+            Assert.assertTrue(false);
         } catch (InvocationTargetException e) {
             e.printStackTrace();
+            Assert.assertTrue(false);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
+            Assert.assertTrue(false);
         }
     }
 

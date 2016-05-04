@@ -2,11 +2,9 @@ package pao.mdoru.impl;
 
 import org.junit.Test;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
-import java.io.StringReader;
 
-import static org.junit.Assert.*;
+import org.junit.Assert;
 
 /**
  * Created by m-doru on 02.05.2016.
@@ -35,14 +33,14 @@ public class HttpRequestAnswerHeaderTest {
 
         header.parseHeader(new ByteArrayInputStream(answer.getBytes()));
 
-        assertEquals(header.getStatusCode(), 404);
-        assertEquals(header.getMessage(), "Not Found");
-        assertEquals(header.getVersion(), "HTTP/1.1");
-        assertEquals(header.getParameters().size(), 4);
-        assertEquals(header.getParameters().get(0), "HTTP/1.1 404 Not Found");
-        assertEquals(header.getParameters().get(1), "Content-Type: text/html; charset=UTF-8");
-        assertEquals(header.getParameters().get(2), "Content-Length: 1562");
-        assertEquals(header.getParameters().get(3), "Date: Mon, 02 May 2016 09:18:59 GMT");
+        Assert.assertEquals(header.getStatusCode(), 404);
+        Assert.assertEquals(header.getMessage(), "Not Found");
+        Assert.assertEquals(header.getVersion(), "HTTP/1.1");
+        Assert.assertEquals(header.getParameters().size(), 4);
+        Assert.assertEquals(header.getParameters().get(0), "HTTP/1.1 404 Not Found");
+        Assert.assertEquals(header.getParameters().get(1), "Content-Type: text/html; charset=UTF-8");
+        Assert.assertEquals(header.getParameters().get(2), "Content-Length: 1562");
+        Assert.assertEquals(header.getParameters().get(3), "Date: Mon, 02 May 2016 09:18:59 GMT");
     }
 
 }
