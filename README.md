@@ -1,5 +1,5 @@
 # Http-proxy-server
-Advanced object oriented programming college project.
+Advanced object oriented programming lab project.
 
 #Properties
 <ul>
