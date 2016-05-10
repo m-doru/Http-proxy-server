@@ -18,10 +18,13 @@ public class HttpRequestHandler {
     }
 
     public void handle(HttpRequestHeader header) throws IOException {
+        if(header == null)
+            throw new IllegalArgumentException("header is null");
         Socket server = this.handleRequest(header);
 
         if(server != null)
             this.handleServerResponse(server);
+        this.clientSocket.close();
     }
 
     private Socket handleRequest(HttpRequestHeader request) {
@@ -51,16 +54,14 @@ public class HttpRequestHandler {
 
             return server;
         } catch (URISyntaxException e) {
-            e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
+        } catch (NullPointerException e){
         }
         return null;
     }
 
     private Socket getServerConnection(HttpRequestHeader request) throws URISyntaxException, IOException {
         URI destination = new URI(request.getUrl());
-
         int port = destination.getPort() < 0 ? 80 : destination.getPort();
         if(port == 80)
             port = request.getPort() == 0 ? 80 : request.getPort();

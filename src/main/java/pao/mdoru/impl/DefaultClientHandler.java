@@ -2,18 +2,18 @@ package pao.mdoru.impl;
 
 
 import pao.mdoru.utils.ClientLogger;
+import pao.mdoru.utils.HttpProxyLogger;
 import pao.mdoru.utils.LineInputStream;
+import pao.mdoru.utils.Logger;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Created by m-doru on 21.04.2016.
  */
 public class DefaultClientHandler implements Runnable{
-    private final Logger LOGGER = Logger.getLogger(DefaultClientHandler.class.getName());
+    private final Logger LOGGER = new HttpProxyLogger();
     private Socket clientSocket;
     private InputStream clientReader;
     public DefaultClientHandler(Socket clientSocket) throws IOException {
@@ -37,8 +37,10 @@ public class DefaultClientHandler implements Runnable{
         try {
             requestHandler.handle(request);
         } catch (IOException e) {
-            this.LOGGER.log(Level.SEVERE, "Failed to handle the request. Aborting");
-            e.printStackTrace();
+            this.LOGGER.log("Failed to handle the request. Aborting");
+        }
+        catch (IllegalArgumentException e){
+            this.LOGGER.log("Failed to handle the request.\nReason: " + e.getMessage());
         }
 
         this.closeConnection();
@@ -48,7 +50,7 @@ public class DefaultClientHandler implements Runnable{
             this.clientSocket.close();
         }
         catch (IOException e){
-            this.LOGGER.log(Level.SEVERE, "Failed to close the client socket");
+            this.LOGGER.log("Failed to close the client socket");
         }
     }
 
@@ -66,7 +68,7 @@ public class DefaultClientHandler implements Runnable{
                     break;
             }
         } catch (IOException e) {
-            this.LOGGER.log(Level.SEVERE, "Fail to read from client socket");
+            this.LOGGER.log("Fail to read from client socket");
             return null;
         }
         return requestBuilder.toString();
