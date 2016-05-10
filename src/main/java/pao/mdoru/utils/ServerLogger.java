@@ -12,9 +12,6 @@ import java.nio.file.Paths;
  */
 public class ServerLogger extends Logger{
     private static final String FILENAME = "server.log";
-    private Path directory;
-    private Path logFile;
-    private FileWriter fileWriter;
 
     public ServerLogger(String destinationDirectoryName){
         super(destinationDirectoryName, FILENAME);
