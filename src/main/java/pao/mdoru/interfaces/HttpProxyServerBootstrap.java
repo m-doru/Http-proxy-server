@@ -1,5 +1,6 @@
 package pao.mdoru.interfaces;
 
+import java.io.IOException;
 import java.net.InetSocketAddress;
 
 /**
@@ -7,24 +8,10 @@ import java.net.InetSocketAddress;
  */
 public interface HttpProxyServerBootstrap {
     /**
-     * <p>Give the server a name (used for naming threads, useful for logging) </p>
-     *
-     * <p> Default = ProxyServer</p>
-     *
-     * @param name
+     * @param name Server name, useful for logging
      * @return
      */
     HttpProxyServerBootstrap withName(String name);
-
-    /**
-     *
-     * @param address : Address to listen for incoming connections
-     * @return
-     *
-     * <p>Default = localhost:37373 </p>
-     */
-    HttpProxyServerBootstrap withAddress(InetSocketAddress address);
-
     /**
      *
      * @param port : Port to listen for incomming connections
@@ -33,9 +20,13 @@ public interface HttpProxyServerBootstrap {
 
     HttpProxyServerBootstrap withPort(int port);
 
+    /**
+     *
+     * @param backlog Size of the request queue
+     * @return
+     */
+    HttpProxyServerBootstrap withBacklog(int backlog);
 
 
-    HttpProxyServerBootstrap withServerResolver(HostResolver serverResolver);
-
-    HttpProxyServer start();
+    HttpProxyServer start() throws Exception;
 }
