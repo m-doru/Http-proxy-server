@@ -50,9 +50,8 @@ public class Logger {
     public void log(String data){
         if(this.fileWriter != null)
             try {
-                this.fileWriter.write(data);
+                this.fileWriter.write(data + '\n');
             } catch (IOException e) {
-                e.printStackTrace();
             }
     }
 
@@ -60,7 +59,6 @@ public class Logger {
         try {
             this.fileWriter.flush();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 }
