@@ -9,13 +9,13 @@ import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by m-doru on 02.05.2016.
  */
 public class LineInputStreamTest {
-    InputStream stream;
+    InputStream stream = null;
     @Before
     public void setUp() throws Exception {
 
@@ -29,7 +29,6 @@ public class LineInputStreamTest {
 
                         this.stream = s.getInputStream();
 
-                        ss.close();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -50,7 +49,6 @@ public class LineInputStreamTest {
     }
     @Test
     public void readLine_MultipleLineContainingStream_CorrectlyReturnsTheLines() throws Exception {
-        Thread.sleep(100);
 
         this.connect("localhost", 32165).getOutputStream().write((
                 "this is a test\n" +
@@ -59,15 +57,24 @@ public class LineInputStreamTest {
                         "\n"
         ).getBytes());
 
-        String line1 = LineInputStream.readLine(this.stream);
-        String line2 = LineInputStream.readLine(this.stream);
-        String line3 = LineInputStream.readLine(this.stream);
-        String emptyLine = LineInputStream.readLine(this.stream);
+        String line1 = LineInputStream.readLine(this.getInputStream());
+        String line2 = LineInputStream.readLine(this.getInputStream());
+        String line3 = LineInputStream.readLine(this.getInputStream());
+        String emptyLine = LineInputStream.readLine(this.getInputStream());
 
         assertEquals("this is a test", line1);
         assertEquals("another line", line2);
         assertEquals("last line", line3);
         assertEquals("", emptyLine);
+    }
+
+    private InputStream getInputStream(){
+        while(this.stream == null)
+            try{
+                Thread.sleep(50);
+            }
+            catch (InterruptedException e) {}
+        return this.stream;
     }
 
 }
