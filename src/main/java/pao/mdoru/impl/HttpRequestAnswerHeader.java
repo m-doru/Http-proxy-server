@@ -16,7 +16,7 @@ public class HttpRequestAnswerHeader {
     private int status;
     private String message;
     private String version;
-    public void parseHeader(InputStream serverInput) throws IOException {
+    public void parseHeader(final InputStream serverInput) throws IOException {
         String firstLine = LineInputStream.readLine(serverInput);
         this.parseFirstLine(firstLine);
 

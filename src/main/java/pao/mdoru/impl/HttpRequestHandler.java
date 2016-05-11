@@ -1,6 +1,8 @@
 package pao.mdoru.impl;
 
 
+import pao.mdoru.utils.HttpProxyLogger;
+import pao.mdoru.utils.Logger;
 import pao.mdoru.utils.ServerLogger;
 
 import java.io.*;
@@ -12,12 +14,12 @@ import java.net.*;
 public class HttpRequestHandler {
     private final byte[] NEW_LINE = {'\r', '\n'};
     private Socket clientSocket;
-
-    public HttpRequestHandler(Socket clientSocket){
+    private final Logger LOGGER = new HttpProxyLogger();
+    public HttpRequestHandler(final Socket clientSocket){
         this.clientSocket = clientSocket;
     }
 
-    public void handle(HttpRequestHeader header) throws IOException {
+    public void handle(final HttpRequestHeader header) throws IOException {
         if(header == null)
             throw new IllegalArgumentException("header is null");
         Socket server = this.handleRequest(header);
@@ -27,7 +29,7 @@ public class HttpRequestHandler {
         this.clientSocket.close();
     }
 
-    private Socket handleRequest(HttpRequestHeader request) {
+    private Socket handleRequest(final HttpRequestHeader request) {
         try {
             Socket server = this.getServerConnection(request);
 
@@ -54,13 +56,16 @@ public class HttpRequestHandler {
 
             return server;
         } catch (URISyntaxException e) {
+            LOGGER.log("URI bad fortmat");
         } catch (IOException e) {
+            LOGGER.log("I/O problem while handling the request");
         } catch (NullPointerException e){
+            LOGGER.log("Failed create the URI instance");
         }
         return null;
     }
 
-    private Socket getServerConnection(HttpRequestHeader request) throws URISyntaxException, IOException {
+    private Socket getServerConnection(final HttpRequestHeader request) throws URISyntaxException, IOException {
         URI destination = new URI(request.getUrl());
         int port = destination.getPort() < 0 ? 80 : destination.getPort();
         if(port == 80)
@@ -69,7 +74,7 @@ public class HttpRequestHandler {
         return new Socket(destination.getHost(), port);
     }
 
-    private void processRequestBody(InputStream requestBody, OutputStream serverWriter, int bodyLength) throws IOException {
+    private void processRequestBody(final InputStream requestBody, final OutputStream serverWriter, int bodyLength) throws IOException {
 
         int read;
 
@@ -87,7 +92,7 @@ public class HttpRequestHandler {
         }
     }
 
-    private void handleServerResponse(Socket server) throws IOException {
+    private void handleServerResponse(final Socket server) throws IOException {
         HttpRequestAnswerHeader answerHeader = new HttpRequestAnswerHeader();
 
         answerHeader.parseHeader(server.getInputStream());

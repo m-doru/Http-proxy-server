@@ -7,7 +7,7 @@ public class HttpProxyLogger extends Logger {
     private static final String FILENAME = "httpProxy.log";
     private static final String DIRNAME = "httpProxy";
 
-    public HttpProxyLogger(String destinationDirectoryName) {
+    public HttpProxyLogger(final String destinationDirectoryName) {
         super(destinationDirectoryName, FILENAME);
     }
 

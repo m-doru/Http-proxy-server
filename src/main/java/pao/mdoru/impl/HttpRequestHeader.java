@@ -17,22 +17,22 @@ public class HttpRequestHeader implements Request {
     private int contentLength = 0;
     private Hashtable<String, String> parameters = new Hashtable<>();
 
-    public HttpRequestHeader(byte[] requestHeader) throws IllegalArgumentException{
+    public HttpRequestHeader(final byte[] requestHeader) throws IllegalArgumentException{
         this.content = requestHeader;
         this.deserialize(new String(requestHeader));
     }
 
-    public HttpRequestHeader(String requestHeader) throws IllegalArgumentException{
+    public HttpRequestHeader(final String requestHeader) throws IllegalArgumentException{
         this.content = requestHeader.getBytes();
         this.deserialize(requestHeader);
     }
 
-    public void deserialize(byte[] buffer) throws IllegalArgumentException{
+    public void deserialize(final byte[] buffer) throws IllegalArgumentException{
         this.deserialize(new String(buffer));
     }
 
-    public void deserialize(String requestHeader) throws IllegalArgumentException{
-        String[] lines = requestHeader.split("\\r?\\n");
+    public void deserialize(final String requestHeader) throws IllegalArgumentException{
+        final String[] lines = requestHeader.split("\\r?\\n");
         if(lines.length == 0)
             return;
 
@@ -54,7 +54,7 @@ public class HttpRequestHeader implements Request {
         }
     }
 
-    private void processHost(String host){
+    private void processHost(final String host){
         String[] hostPort = host.split(":");
         if(hostPort.length == 2){
             this.host = hostPort[0];
@@ -66,8 +66,8 @@ public class HttpRequestHeader implements Request {
         }
     }
 
-    private void processFirstLine(String line) throws IllegalArgumentException {
-        String[] data = line.split(" ");
+    private void processFirstLine(final String line) throws IllegalArgumentException {
+        final String[] data = line.split(" ");
 
         for(String field : data){
             if(field.startsWith("http") || (!field.startsWith("HTTP") && field.contains("/")))

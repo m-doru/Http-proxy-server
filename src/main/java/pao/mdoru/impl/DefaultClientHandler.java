@@ -23,7 +23,7 @@ public class DefaultClientHandler implements Runnable{
 
     @Override
     public void run(){
-        String requestHeader = this.readHeader();
+        final String requestHeader = this.readHeader();
 
         ClientLogger logger = new ClientLogger("client");
         logger.log(requestHeader);

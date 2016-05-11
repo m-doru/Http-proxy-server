@@ -7,7 +7,7 @@ import java.io.InputStream;
  * Created by m-doru on 02.05.2016.
  */
 public class LineInputStream {
-    public static String readLine(InputStream stream) throws IOException {
+    public static String readLine(final InputStream stream) throws IOException {
         byte[] bit = new byte[1];
 
         ByteBuilder lineBuilder = new ByteBuilder();

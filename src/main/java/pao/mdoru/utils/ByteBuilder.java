@@ -33,7 +33,7 @@ public class ByteBuilder {
      * @param buf
      * @param length
      */
-    public void append(byte[] buf, int length){
+    public void append(final byte[] buf, final int length){
         if(null == buf)
             return;
         if(length > buf.length)

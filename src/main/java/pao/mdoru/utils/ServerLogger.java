@@ -13,7 +13,7 @@ import java.nio.file.Paths;
 public class ServerLogger extends Logger{
     private static final String FILENAME = "server.log";
 
-    public ServerLogger(String destinationDirectoryName){
+    public ServerLogger(final String destinationDirectoryName){
         super(destinationDirectoryName, FILENAME);
     }
 }

@@ -21,7 +21,7 @@ public class DefaultHttpProxyServer implements HttpProxyServer {
     private volatile Thread socketListenerThread;
     private ExecutorService clientHandler;
 
-    public DefaultHttpProxyServer(String name, int port, int threadPoolSize) throws IOException {
+    public DefaultHttpProxyServer(final String name, final int port, final int threadPoolSize) throws IOException {
         this.name = name;
         this.port = port;
         this.serverSocket = new ServerSocket(this.port);

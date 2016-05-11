@@ -45,7 +45,7 @@ public class LoggerTest {
 
         String fileLogContent = new String(Files.readAllBytes(filePath));
 
-        assertEquals("test\n", fileLogContent);
+        assertEquals("test", fileLogContent);
     }
 
 }

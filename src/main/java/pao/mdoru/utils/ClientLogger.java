@@ -9,7 +9,7 @@ import java.nio.file.Path;
 public class ClientLogger extends Logger{
     private static final String FILENAME = "client.log";
 
-    public ClientLogger(String destinationDirectoryName) {
+    public ClientLogger(final String destinationDirectoryName) {
         super(destinationDirectoryName, FILENAME);
     }
 

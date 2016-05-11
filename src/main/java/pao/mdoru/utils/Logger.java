@@ -16,7 +16,7 @@ public class Logger {
     private FileWriter fileWriter;
     private String filename;
 
-    public Logger(String destinationDirectoryName, String filename){
+    public Logger(final String destinationDirectoryName, final String filename){
         this.directory = Paths.get(destinationDirectoryName);
 
         if(!Files.exists(this.directory) || !Files.isDirectory(this.directory))
@@ -47,10 +47,10 @@ public class Logger {
         }
     }
 
-    public void log(String data){
+    public void log(final String data){
         if(this.fileWriter != null)
             try {
-                this.fileWriter.write(data + '\n');
+                this.fileWriter.write(data);
             } catch (IOException e) {
             }
     }
